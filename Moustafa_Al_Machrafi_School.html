@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Moustafa Al Machrafi Middle School</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { 50:'#eef2ff', 100:'#e0e7ff', 200:'#c7d2fe', 300:'#a5b4fc', 400:'#818cf8', 500:'#6366f1', 600:'#1e3a8a', 700:'#1e3a6e', 800:'#172554', 900:'#0f172a', 950:'#080d1f' },
+        gold:  { 100:'#fef9c3', 200:'#fef08a', 300:'#fde047', 400:'#facc15', 500:'#eab308', 600:'#ca8a04', 700:'#a16207' },
+        teal:  { 300:'#5eead4', 400:'#2dd4bf', 500:'#14b8a6', 600:'#0d9488' }
+      },
+      fontFamily: {
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        body:    ['"Plus Jakarta Sans"', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:#f8fafc;color:#1e293b;overflow-x:hidden;}
+
+  /* NAV */
+  #navbar{transition:all .4s ease;}
+  #navbar.scrolled{background:rgba(15,23,42,.97)!important;backdrop-filter:blur(16px);box-shadow:0 4px 30px rgba(0,0,0,.4);}
+  .nav-link{position:relative;padding:.3rem 0;color:#cbd5e1;transition:color .3s;}
+  .nav-link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:2px;background:linear-gradient(90deg,#facc15,#eab308);transition:width .35s ease;}
+  .nav-link:hover{color:#fff;}
+  .nav-link:hover::after{width:100%;}
+
+  /* HERO */
+  .hero-bg{
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 45%, #0f4c75 100%);
+    position:relative;overflow:hidden;
+  }
+  .hero-bg::before{
+    content:'';position:absolute;inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-orb{
+    position:absolute;border-radius:50%;filter:blur(80px);opacity:.18;pointer-events:none;
+  }
+  .hero-orb-1{width:700px;height:700px;background:#facc15;top:-200px;right:-150px;}
+  .hero-orb-2{width:500px;height:500px;background:#14b8a6;bottom:-200px;left:-100px;}
+
+  /* BENTO */
+  .bento-card{
+    border-radius:1.5rem;overflow:hidden;position:relative;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .bento-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.18);}
+  .bento-card .card-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(10,20,50,.88) 0%, rgba(10,20,50,.3) 60%, transparent 100%);
+    transition:background .35s;
+  }
+  .bento-card:hover .card-overlay{background:linear-gradient(to top, rgba(10,20,50,.95) 0%, rgba(10,20,50,.5) 70%, rgba(10,20,50,.1) 100%);}
+  .bento-icon{
+    width:52px;height:52px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;margin-bottom:.75rem;
+    background:rgba(255,255,255,.12);backdrop-filter:blur(4px);
+  }
+
+  /* STATS */
+  .stat-card{
+    background:linear-gradient(135deg,#fff 0%,#f0f5ff 100%);
+    border:1px solid rgba(30,58,138,.1);
+    border-radius:1.25rem;padding:2rem 1.5rem;text-align:center;
+    box-shadow:0 4px 24px rgba(30,58,138,.08);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .stat-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(30,58,138,.14);}
+  .stat-number{
+    font-family:'Playfair Display',serif;
+    font-size:3rem;font-weight:700;
+    background:linear-gradient(135deg,#1e3a8a,#0d9488);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+
+  /* MASSAR */
+  .massar-section{
+    background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#1e40af 100%);
+    position:relative;overflow:hidden;
+  }
+  .massar-section::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 80% 50%, rgba(20,184,166,.15) 0%, transparent 60%);
+  }
+  .massar-card{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:1.5rem;backdrop-filter:blur(12px);
+    box-shadow:0 8px 32px rgba(0,0,0,.25);
+  }
+  .massar-btn{
+    background:linear-gradient(135deg,#facc15,#eab308);
+    color:#0f172a;font-weight:700;letter-spacing:.04em;
+    padding:.9rem 2.2rem;border-radius:999px;font-size:1rem;
+    box-shadow:0 4px 24px rgba(234,179,8,.4);
+    transition:transform .25s, box-shadow .25s;display:inline-flex;align-items:center;gap:.5rem;
+  }
+  .massar-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(234,179,8,.55);}
+
+  /* FOOTER */
+  footer{background:#080d1f;color:#94a3b8;}
+  .footer-link{transition:color .25s;}
+  .footer-link:hover{color:#facc15;}
+  .social-icon{
+    width:40px;height:40px;border-radius:10px;
+    border:1px solid rgba(255,255,255,.12);
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#94a3b8;transition:all .25s;font-size:.95rem;
+  }
+  .social-icon:hover{background:rgba(250,204,21,.15);border-color:rgba(250,204,21,.4);color:#facc15;}
+
+  /* CTA button */
+  .cta-btn{
+    background:linear-gradient(135deg,#facc15,#f59e0b);
+    color:#0f172a;font-weight:700;letter-spacing:.04em;
+    padding:.9rem 2.4rem;border-radius:999px;font-size:1.05rem;
+    box-shadow:0 6px 28px rgba(234,179,8,.45);
+    transition:transform .25s,box-shadow .25s;display:inline-flex;align-items:center;gap:.6rem;
+  }
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(234,179,8,.6);}
+  .cta-outline{
+    border:2px solid rgba(255,255,255,.35);color:#fff;
+    padding:.85rem 2.2rem;border-radius:999px;font-size:1rem;font-weight:500;
+    transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;
+  }
+  .cta-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6);}
+
+  /* COUNTER */
+  .counter{display:inline-block;}
+
+  /* SECTION DIVIDER */
+  .section-label{
+    display:inline-flex;align-items:center;gap:.6rem;
+    background:linear-gradient(135deg,rgba(30,58,138,.1),rgba(13,148,136,.08));
+    border:1px solid rgba(30,58,138,.15);border-radius:999px;
+    padding:.35rem 1.1rem;font-size:.8rem;font-weight:600;
+    color:#1e3a8a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem;
+  }
+  .section-label .dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#facc15,#eab308);}
+
+  /* BENTO BG */
+  .bento-lab{background:linear-gradient(135deg,#1e3a8a,#0f4c75);min-height:260px;}
+  .bento-pool{background:linear-gradient(135deg,#0f4c75,#0d9488);min-height:220px;}
+  .bento-basket{background:linear-gradient(135deg,#ea580c,#b45309);min-height:220px;}
+  .bento-library{background:linear-gradient(135deg,#6d28d9,#1e3a8a);min-height:200px;}
+  .bento-arts{background:linear-gradient(135deg,#db2777,#9333ea);min-height:200px;}
+  .bento-tech{background:linear-gradient(135deg,#0d9488,#1e3a8a);min-height:200px;}
+
+  /* PATTERN OVERLAYS */
+  .pattern-dots::after{
+    content:'';position:absolute;inset:0;
+    background-image:radial-gradient(circle,rgba(255,255,255,.12) 1px,transparent 1px);
+    background-size:22px 22px;
+  }
+
+  /* Mobile nav toggle */
+  #mobile-menu{display:none;}
+  #mobile-menu.open{display:block;}
+
+  /* SCROLL INDICATOR */
+  .scroll-down{
+    animation:bounce 2s infinite;
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(10px);}
+  }
+
+  /* DEPT PILLS */
+  .dept-pill{
+    background:linear-gradient(135deg,rgba(30,58,138,.08),rgba(13,148,136,.06));
+    border:1px solid rgba(30,58,138,.14);border-radius:999px;
+    padding:.45rem 1.2rem;font-size:.85rem;font-weight:500;color:#1e3a8a;
+    transition:all .25s;
+  }
+  .dept-pill:hover{background:linear-gradient(135deg,rgba(30,58,138,.18),rgba(13,148,136,.12));transform:translateY(-2px);}
+
+  /* TIMELINE */
+  .timeline-dot{
+    width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,#facc15,#eab308);
+    box-shadow:0 0 0 4px rgba(234,179,8,.2);flex-shrink:0;margin-top:.35rem;
+  }
+  .timeline-line{width:2px;background:linear-gradient(to bottom,#facc15,rgba(234,179,8,.1));flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<!-- ====== NAVBAR ====== -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-400" style="background:rgba(15,23,42,0.5);backdrop-filter:blur(8px);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-xl flex items-center justify-content:center bg-gradient-to-br from-gold-400 to-gold-600 shadow-lg" style="background:linear-gradient(135deg,#facc15,#ca8a04);display:flex;align-items:center;justify-content:center;">
+          <i class="fa-solid fa-graduation-cap text-navy-900 text-xl" style="color:#0f172a;"></i>
+        </div>
+        <div>
+          <p class="text-white font-display font-bold text-lg leading-tight">Moustafa Al Machrafi</p>
+          <p class="text-xs font-body" style="color:#94a3b8;letter-spacing:.06em;">MIDDLE SCHOOL</p>
+        </div>
+      </a>
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#home" class="nav-link font-body text-sm font-medium">Home</a>
+        <a href="#about" class="nav-link font-body text-sm font-medium">About</a>
+        <a href="#departments" class="nav-link font-body text-sm font-medium">Departments</a>
+        <a href="#contact" class="nav-link font-body text-sm font-medium">Contact</a>
+      </div>
+      <!-- CTA -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://massar.men.gov.ma/" target="_blank" class="massar-btn text-sm" style="padding:.6rem 1.5rem;font-size:.85rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Massar Portal
+        </a>
+      </div>
+      <!-- Hamburger -->
+      <button id="ham-btn" class="md:hidden text-white text-2xl focus:outline-none" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars" id="ham-icon"></i>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden pb-6">
+      <div class="flex flex-col gap-4 mt-2">
+        <a href="#home" class="text-slate-300 hover:text-white font-body text-sm font-medium" onclick="toggleMenu()">Home</a>
+        <a href="#about" class="text-slate-300 hover:text-white font-body text-sm font-medium" onclick="toggleMenu()">About</a>
+        <a href="#departments" class="text-slate-300 hover:text-white font-body text-sm font-medium" onclick="toggleMenu()">Departments</a>
+        <a href="#contact" class="text-slate-300 hover:text-white font-body text-sm font-medium" onclick="toggleMenu()">Contact</a>
+        <a href="https://massar.men.gov.ma/" target="_blank" class="massar-btn text-sm w-fit">
+          <i class="fa-solid fa-right-to-bracket"></i> Massar Portal
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section id="home" class="hero-bg min-h-screen flex items-center relative">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <!-- Floating shapes -->
+  <div class="absolute top-32 left-10 w-20 h-20 rounded-2xl opacity-10" style="background:rgba(250,204,21,.4);transform:rotate(15deg);"></div>
+  <div class="absolute bottom-32 right-12 w-14 h-14 rounded-xl opacity-10" style="background:rgba(20,184,166,.5);transform:rotate(-20deg);"></div>
+  <div class="absolute top-1/3 right-20 w-8 h-8 rounded-full opacity-15" style="background:#facc15;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-32 lg:py-40 relative z-10">
+    <div class="max-w-3xl">
+      <!-- Badge -->
+      <div data-aos="fade-right" data-aos-duration="700" class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-semibold tracking-widest uppercase" style="background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.3);color:#facc15;">
+        <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+        Est. &nbsp;·&nbsp; Oujda, Morocco
+      </div>
+      <!-- Headline -->
+      <h1 data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" class="font-display font-black leading-tight mb-6 text-white" style="font-size:clamp(2.8rem,6vw,5rem);">
+        Empowering<br/>
+        <span style="background:linear-gradient(90deg,#facc15,#f59e0b,#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Future Leaders</span><br/>
+        at Moustafa Al Machrafi
+      </h1>
+      <!-- Sub -->
+      <p data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" class="font-body text-lg font-light leading-relaxed mb-10 max-w-xl" style="color:#94a3b8;">
+        A community of curious minds, dedicated educators, and world-class facilities — shaping the next generation of Morocco's brightest talents.
+      </p>
+      <!-- CTAs -->
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" class="flex flex-wrap gap-4 items-center">
+        <a href="#about" class="cta-btn">
+          <i class="fa-solid fa-compass"></i> Explore Our School
+        </a>
+        <a href="#contact" class="cta-outline">
+          <i class="fa-regular fa-envelope"></i> Get In Touch
+        </a>
+      </div>
+      <!-- Mini stats -->
+      <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="450" class="flex flex-wrap gap-8 mt-14 pt-8" style="border-top:1px solid rgba(255,255,255,.1);">
+        <div>
+          <p class="text-white font-display font-bold text-3xl">600+</p>
+          <p class="text-sm mt-1" style="color:#64748b;">Students</p>
+        </div>
+        <div>
+          <p class="text-white font-display font-bold text-3xl">96%</p>
+          <p class="text-sm mt-1" style="color:#64748b;">Success Rate</p>
+        </div>
+        <div>
+          <p class="text-white font-display font-bold text-3xl">50+</p>
+          <p class="text-sm mt-1" style="color:#64748b;">Expert Teachers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 scroll-down">
+    <p class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,.35);">Scroll</p>
+    <i class="fa-solid fa-chevron-down text-sm" style="color:rgba(255,255,255,.3);"></i>
+  </div>
+</section>
+
+<!-- ====== ABOUT ====== -->
+<section id="about" class="py-24 lg:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: text -->
+      <div>
+        <div data-aos="fade-right" class="section-label">
+          <span class="dot"></span> About Our School
+        </div>
+        <h2 data-aos="fade-right" data-aos-delay="100" class="font-display font-bold text-4xl lg:text-5xl leading-tight mb-6" style="color:#0f172a;">
+          Building Excellence<br/>Since Day One
+        </h2>
+        <p data-aos="fade-right" data-aos-delay="200" class="font-body text-base leading-relaxed mb-6" style="color:#475569;">
+          Moustafa Al Machrafi Middle School stands as a beacon of academic excellence in Oujda, Morocco. Our institution combines rigorous academics with a nurturing environment, ensuring every student reaches their full potential.
+        </p>
+        <p data-aos="fade-right" data-aos-delay="250" class="font-body text-base leading-relaxed mb-8" style="color:#475569;">
+          We believe in holistic education — developing not just intellect, but character, creativity, and civic responsibility in every young person who walks through our doors.
+        </p>
+        <!-- Timeline highlights -->
+        <div data-aos="fade-right" data-aos-delay="300" class="flex flex-col gap-6">
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line flex-1 mt-1" style="min-height:40px;"></div>
+            </div>
+            <div>
+              <p class="font-semibold text-sm" style="color:#0f172a;">Academic Excellence</p>
+              <p class="text-sm mt-1" style="color:#64748b;">Consistent top-performing school in the Oriental Region.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line flex-1 mt-1" style="min-height:40px;"></div>
+            </div>
+            <div>
+              <p class="font-semibold text-sm" style="color:#0f172a;">Modern Facilities</p>
+              <p class="text-sm mt-1" style="color:#64748b;">Equipped with labs, sports complexes, and a rich library.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex flex-col items-center">
+              <div class="timeline-dot"></div>
+            </div>
+            <div>
+              <p class="font-semibold text-sm" style="color:#0f172a;">Community Values</p>
+              <p class="text-sm mt-1" style="color:#64748b;">Strong ties with parents, alumni, and the Oujda community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: visual card -->
+      <div data-aos="fade-left" data-aos-delay="150">
+        <div class="relative">
+          <!-- Main card -->
+          <div class="rounded-3xl p-8 relative overflow-hidden" style="background:linear-gradient(135deg,#1e3a8a,#0f172a);min-height:420px;">
+            <div class="absolute inset-0 pattern-dots opacity-40"></div>
+            <!-- School crest mockup -->
+            <div class="relative z-10 flex flex-col items-center justify-center h-full pt-8">
+              <div class="w-28 h-28 rounded-full mb-6 flex items-center justify-center" style="background:rgba(250,204,21,.15);border:2px solid rgba(250,204,21,.3);">
+                <i class="fa-solid fa-school text-5xl" style="color:#facc15;"></i>
+              </div>
+              <h3 class="font-display font-bold text-white text-2xl text-center mb-2">Moustafa Al Machrafi</h3>
+              <p class="text-sm text-center mb-8" style="color:#64748b;">Middle School · Oujda</p>
+              <!-- Icon row -->
+              <div class="grid grid-cols-3 gap-4 w-full max-w-xs">
+                <div class="flex flex-col items-center gap-2 p-3 rounded-2xl" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+                  <i class="fa-solid fa-flask text-teal-400 text-xl"></i>
+                  <p class="text-xs text-center" style="color:#94a3b8;">Science</p>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-3 rounded-2xl" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+                  <i class="fa-solid fa-book-open text-purple-400 text-xl"></i>
+                  <p class="text-xs text-center" style="color:#94a3b8;">Library</p>
+                </div>
+                <div class="flex flex-col items-center gap-2 p-3 rounded-2xl" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);">
+                  <i class="fa-solid fa-person-swimming text-blue-400 text-xl"></i>
+                  <p class="text-xs text-center" style="color:#94a3b8;">Sports</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Floating badge -->
+          <div class="absolute -bottom-5 -left-5 px-5 py-3 rounded-2xl shadow-2xl" style="background:#fff;border:1px solid rgba(30,58,138,.1);">
+            <p class="text-xs font-semibold uppercase tracking-wider" style="color:#64748b;">Success Rate</p>
+            <p class="font-display font-bold text-2xl" style="color:#1e3a8a;">96%</p>
+          </div>
+          <!-- Badge 2 -->
+          <div class="absolute -top-4 -right-4 w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl" style="background:linear-gradient(135deg,#facc15,#ca8a04);">
+            <i class="fa-solid fa-star text-white text-2xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== BENTO FACILITIES ====== -->
+<section id="departments" class="py-24 lg:py-32" style="background:#f0f4ff;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <!-- Header -->
+    <div class="text-center mb-14">
+      <div data-aos="fade-up" class="section-label inline-flex">
+        <span class="dot"></span> Our Facilities
+      </div>
+      <h2 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl lg:text-5xl leading-tight" style="color:#0f172a;">
+        World-Class Campus
+      </h2>
+      <p data-aos="fade-up" data-aos-delay="200" class="font-body text-base mt-4 max-w-xl mx-auto" style="color:#475569;">
+        From cutting-edge science labs to an Olympic-grade swimming complex — our campus offers every resource a student needs to thrive.
+      </p>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-auto">
+
+      <!-- Science Lab — large -->
+      <div data-aos="zoom-in" data-aos-delay="0" class="bento-card bento-lab md:col-span-2 lg:col-span-2 relative pattern-dots" style="min-height:300px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-flask text-teal-300"></i></div>
+          <h3 class="font-display font-bold text-white text-2xl mb-2">Science Laboratory</h3>
+          <p class="font-body text-sm leading-relaxed" style="color:#94a3b8;">State-of-the-art equipment for chemistry, physics, and biology experiments. Where curiosity meets discovery.</p>
+        </div>
+      </div>
+
+      <!-- Swimming -->
+      <div data-aos="zoom-in" data-aos-delay="80" class="bento-card bento-pool relative pattern-dots" style="min-height:280px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-person-swimming text-blue-300"></i></div>
+          <h3 class="font-display font-bold text-white text-xl mb-1">Swimming Complex</h3>
+          <p class="font-body text-xs leading-relaxed" style="color:#94a3b8;">Olympic-style pool for training and competition.</p>
+        </div>
+      </div>
+
+      <!-- Basketball -->
+      <div data-aos="zoom-in" data-aos-delay="160" class="bento-card bento-basket relative pattern-dots" style="min-height:280px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-basketball text-orange-300"></i></div>
+          <h3 class="font-display font-bold text-white text-xl mb-1">Basketball Court</h3>
+          <p class="font-body text-xs leading-relaxed" style="color:#94a3b8;">Indoor regulation courts for sports excellence.</p>
+        </div>
+      </div>
+
+      <!-- Library -->
+      <div data-aos="zoom-in" data-aos-delay="240" class="bento-card bento-library relative pattern-dots" style="min-height:240px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-book-open text-purple-300"></i></div>
+          <h3 class="font-display font-bold text-white text-xl mb-1">Library</h3>
+          <p class="font-body text-xs leading-relaxed" style="color:#94a3b8;">10,000+ volumes across every discipline.</p>
+        </div>
+      </div>
+
+      <!-- Arts -->
+      <div data-aos="zoom-in" data-aos-delay="320" class="bento-card bento-arts relative pattern-dots" style="min-height:240px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-palette text-pink-300"></i></div>
+          <h3 class="font-display font-bold text-white text-xl mb-1">Arts Studio</h3>
+          <p class="font-body text-xs leading-relaxed" style="color:#94a3b8;">Creative spaces for art, music, and expression.</p>
+        </div>
+      </div>
+
+      <!-- Tech Lab — wide -->
+      <div data-aos="zoom-in" data-aos-delay="400" class="bento-card bento-tech md:col-span-2 relative pattern-dots" style="min-height:240px;">
+        <div class="card-overlay"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
+          <div class="bento-icon"><i class="fa-solid fa-laptop-code text-teal-300"></i></div>
+          <h3 class="font-display font-bold text-white text-2xl mb-1">Technology & ICT Lab</h3>
+          <p class="font-body text-sm leading-relaxed" style="color:#94a3b8;">Modern computing suites powering digital literacy for every student.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Department pills -->
+    <div data-aos="fade-up" data-aos-delay="200" class="mt-14 text-center">
+      <p class="font-body text-sm font-medium mb-5" style="color:#64748b;">Academic Departments</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <span class="dept-pill"><i class="fa-solid fa-calculator mr-2 text-xs"></i>Mathematics</span>
+        <span class="dept-pill"><i class="fa-solid fa-atom mr-2 text-xs"></i>Sciences</span>
+        <span class="dept-pill"><i class="fa-solid fa-language mr-2 text-xs"></i>Languages</span>
+        <span class="dept-pill"><i class="fa-solid fa-landmark mr-2 text-xs"></i>History & Civics</span>
+        <span class="dept-pill"><i class="fa-solid fa-earth-africa mr-2 text-xs"></i>Geography</span>
+        <span class="dept-pill"><i class="fa-solid fa-palette mr-2 text-xs"></i>Arts & Music</span>
+        <span class="dept-pill"><i class="fa-solid fa-laptop-code mr-2 text-xs"></i>ICT</span>
+        <span class="dept-pill"><i class="fa-solid fa-person-running mr-2 text-xs"></i>Physical Education</span>
+        <span class="dept-pill"><i class="fa-solid fa-mosque mr-2 text-xs"></i>Islamic Studies</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== STATS ====== -->
+<section class="py-24 lg:py-32 bg-white">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-center mb-14">
+      <div data-aos="fade-up" class="section-label inline-flex">
+        <span class="dot"></span> Academic Excellence
+      </div>
+      <h2 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl lg:text-5xl leading-tight" style="color:#0f172a;">
+        Our Numbers Speak
+      </h2>
+      <p data-aos="fade-up" data-aos-delay="200" class="font-body text-base mt-4 max-w-lg mx-auto" style="color:#475569;">
+        Years of dedication, hard work, and a commitment to excellence reflected in our results.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <div data-aos="fade-up" data-aos-delay="0" class="stat-card">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(30,58,138,.1),rgba(13,148,136,.08));">
+          <i class="fa-solid fa-users text-2xl" style="color:#1e3a8a;"></i>
+        </div>
+        <p class="stat-number" data-target="620">0</p>
+        <p class="text-xs font-semibold uppercase tracking-wider mt-2" style="color:#64748b;">Students Enrolled</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="100" class="stat-card">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(234,179,8,.12),rgba(245,158,11,.08));">
+          <i class="fa-solid fa-trophy text-2xl text-yellow-500"></i>
+        </div>
+        <p class="stat-number" data-target="96">0</p>
+        <p class="text-xs font-semibold uppercase tracking-wider mt-2" style="color:#64748b;">% Success Rate</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="200" class="stat-card">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(13,148,136,.1),rgba(20,184,166,.08));">
+          <i class="fa-solid fa-chalkboard-user text-2xl text-teal-600"></i>
+        </div>
+        <p class="stat-number" data-target="52">0</p>
+        <p class="text-xs font-semibold uppercase tracking-wider mt-2" style="color:#64748b;">Expert Teachers</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="300" class="stat-card">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(109,40,217,.08));">
+          <i class="fa-solid fa-building-columns text-2xl text-purple-600"></i>
+        </div>
+        <p class="stat-number" data-target="12">0</p>
+        <p class="text-xs font-semibold uppercase tracking-wider mt-2" style="color:#64748b;">Classrooms</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== MASSAR PORTAL ====== -->
+<section class="massar-section py-24 lg:py-32 relative">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <div data-aos="zoom-in" class="massar-card p-10 lg:p-14">
+        <div class="flex flex-col lg:flex-row items-center gap-10">
+          <!-- Icon block -->
+          <div class="flex-shrink-0">
+            <div class="w-28 h-28 rounded-3xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(250,204,21,.2),rgba(234,179,8,.1));border:1px solid rgba(250,204,21,.3);">
+              <i class="fa-solid fa-user-graduate text-5xl" style="color:#facc15;"></i>
+            </div>
+          </div>
+          <!-- Text -->
+          <div class="flex-1 text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase" style="background:rgba(250,204,21,.1);border:1px solid rgba(250,204,21,.2);color:#facc15;">
+              Official Platform
+            </div>
+            <h2 class="font-display font-bold text-3xl lg:text-4xl text-white mb-4 leading-tight">
+              Massar Student Portal
+            </h2>
+            <p class="font-body text-base leading-relaxed mb-8" style="color:#94a3b8;">
+              Access your grades, attendance records, and school documents through Morocco's official educational management platform. Stay connected with your academic journey anytime, anywhere.
+            </p>
+            <!-- Features row -->
+            <div class="flex flex-wrap gap-6 mb-8 justify-center lg:justify-start">
+              <div class="flex items-center gap-2 text-sm" style="color:#cbd5e1;">
+                <i class="fa-solid fa-check-circle" style="color:#14b8a6;"></i> View Grades
+              </div>
+              <div class="flex items-center gap-2 text-sm" style="color:#cbd5e1;">
+                <i class="fa-solid fa-check-circle" style="color:#14b8a6;"></i> Track Attendance
+              </div>
+              <div class="flex items-center gap-2 text-sm" style="color:#cbd5e1;">
+                <i class="fa-solid fa-check-circle" style="color:#14b8a6;"></i> School Documents
+              </div>
+              <div class="flex items-center gap-2 text-sm" style="color:#cbd5e1;">
+                <i class="fa-solid fa-check-circle" style="color:#14b8a6;"></i> Parent Access
+              </div>
+            </div>
+            <a href="https://massar.men.gov.ma/" target="_blank" class="massar-btn">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Access Massar Portal
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CONTACT ====== -->
+<section id="contact" class="py-24 lg:py-32" style="background:#f8fafc;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="text-center mb-14">
+      <div data-aos="fade-up" class="section-label inline-flex">
+        <span class="dot"></span> Contact Us
+      </div>
+      <h2 data-aos="fade-up" data-aos-delay="100" class="font-display font-bold text-4xl lg:text-5xl leading-tight" style="color:#0f172a;">
+        Get In Touch
+      </h2>
+      <p data-aos="fade-up" data-aos-delay="200" class="font-body text-base mt-4 max-w-lg mx-auto" style="color:#475569;">
+        We're here to answer any questions about admissions, academics, or general enquiries.
+      </p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <div data-aos="fade-up" data-aos-delay="0" class="stat-card text-center">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(30,58,138,.1),rgba(13,148,136,.08));">
+          <i class="fa-solid fa-location-dot text-2xl" style="color:#1e3a8a;"></i>
+        </div>
+        <h4 class="font-semibold text-sm mb-1" style="color:#0f172a;">Address</h4>
+        <p class="text-sm" style="color:#64748b;">Oujda, Oriental Region<br/>Morocco</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="100" class="stat-card text-center">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(234,179,8,.12),rgba(245,158,11,.08));">
+          <i class="fa-solid fa-phone text-2xl text-yellow-500"></i>
+        </div>
+        <h4 class="font-semibold text-sm mb-1" style="color:#0f172a;">Phone</h4>
+        <p class="text-sm" style="color:#64748b;">+212 (0)5 36 XX XX XX<br/>Mon–Fri, 8am–4pm</p>
+      </div>
+      <div data-aos="fade-up" data-aos-delay="200" class="stat-card text-center">
+        <div class="w-14 h-14 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,rgba(13,148,136,.1),rgba(20,184,166,.08));">
+          <i class="fa-regular fa-envelope text-2xl text-teal-600"></i>
+        </div>
+        <h4 class="font-semibold text-sm mb-1" style="color:#0f172a;">Email</h4>
+        <p class="text-sm" style="color:#64748b;">contact@machrafi.edu.ma<br/>admissions@machrafi.edu.ma</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="py-14">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <!-- Top row -->
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 pb-10" style="border-bottom:1px solid rgba(255,255,255,.07);">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#facc15,#ca8a04);">
+            <i class="fa-solid fa-graduation-cap" style="color:#0f172a;font-size:.9rem;"></i>
+          </div>
+          <div>
+            <p class="text-white font-display font-bold text-base leading-tight">Moustafa Al Machrafi</p>
+            <p class="text-xs" style="color:#475569;letter-spacing:.06em;">MIDDLE SCHOOL</p>
+          </div>
+        </div>
+        <p class="text-sm max-w-xs leading-relaxed" style="color:#475569;">Shaping tomorrow's leaders through academic excellence and holistic development. Oujda, Morocco.</p>
+      </div>
+      <!-- Links -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm">
+        <div>
+          <p class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">School</p>
+          <div class="flex flex-col gap-2">
+            <a href="#home" class="footer-link">Home</a>
+            <a href="#about" class="footer-link">About Us</a>
+            <a href="#departments" class="footer-link">Departments</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Resources</p>
+          <div class="flex flex-col gap-2">
+            <a href="https://massar.men.gov.ma/" target="_blank" class="footer-link">Massar Portal</a>
+            <a href="#contact" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Follow Us</p>
+          <div class="flex gap-2 flex-wrap">
+            <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs" style="color:#334155;">
+      <p>© 2026 Moustafa Al Machrafi Middle School. All rights reserved.</p>
+      <p>Designed with <i class="fa-solid fa-heart text-red-500 mx-1"></i> by <span class="text-yellow-400 font-semibold">Yuta</span></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+// AOS init
+AOS.init({ once: true, offset: 60, easing: 'ease-out-cubic' });
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Mobile menu
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('ham-icon');
+  menu.classList.toggle('open');
+  icon.className = menu.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+}
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('[data-target]').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    const suffix = el.nextElementSibling?.textContent.includes('%') ? '+' : '+';
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 60));
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current + (target < 100 ? '%' : '+');
+      if (current >= target) {
+        el.textContent = target + (target < 100 ? '%' : '+');
+        clearInterval(timer);
+      }
+    }, 28);
+  });
+}
+
+// Trigger counter when stats section visible
+const statsSection = document.querySelector('.stat-number');
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounters(); counterObserver.disconnect(); }});
+}, { threshold: 0.3 });
+if (statsSection) counterObserver.observe(statsSection);
+</script>
+</body>
+</html>
